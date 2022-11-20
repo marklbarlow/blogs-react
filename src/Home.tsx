@@ -11,7 +11,7 @@ export const Home = () => {
     const fetchData = async () =>
       setPreviews(await BlogsAPI.loadBlogPreviews(5));
     fetchData();
-  });
+  }, []);
 
   const items = previews.map(preview => (
     <ListItem disablePadding key={preview.id}>
