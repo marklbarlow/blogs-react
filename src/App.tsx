@@ -12,10 +12,8 @@ import {
 } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { EditBlog } from './EditBlog';
-import { Home } from './Home';
+import { EditBlog, Home, ViewBlog } from './components';
 import { theme } from './theme';
-import { ViewBlog } from './ViewBlog';
 
 export const App = () => {
   return (
@@ -39,7 +37,7 @@ export const App = () => {
                   textDecoration: 'none',
                 }}
               >
-                Blogs
+                Blog
               </Typography>
               <Box sx={{ flexGrow: 1 }}>
                 <Button href="/edit-blog" color="secondary" variant="contained">
@@ -65,7 +63,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/edit-blog" element={<EditBlog />} />
-            <Route path="/view-blog" element={<ViewBlog />} />
+            <Route path="/view-blog/:id" element={<ViewBlog />} />
           </Routes>
         </Box>
       </ThemeProvider>
