@@ -9,7 +9,7 @@ export const BlogsAPI = {
   ): Promise<void> =>
     await Rest.post<void>(`/blogs/${blogId}/comments`, { text, userId }),
   addLike: async (blogId: number, userId: number): Promise<void> =>
-    await Rest.put<void>(`$/blogs/${blogId}/likes/${userId}`, {}),
+    await Rest.put<void>(`/blogs/${blogId}/likes/${userId}`, {}),
   loadBlogComments: async (blogId: number): Promise<BlogComment[]> =>
     await Rest.get<BlogComment[]>(`/blogs/${blogId}/comments`),
   loadBlogEntry: async (blogId: number): Promise<BlogEntry> =>

@@ -2,13 +2,13 @@ import { CircularProgress, Container } from '@mui/material';
 import { Box } from '@mui/system';
 import { format } from 'date-fns';
 import createDOMPurify from 'dompurify';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { BlogsAPI } from '../apis/BlogsAPI';
 import { BlogComment, BlogEntry, BlogLike, User } from '../model';
 import { Comments } from './Comments';
-import { Likes } from './Likes';
+import { includesUser, Likes } from './Likes';
 
 const DOMPurify = createDOMPurify(window);
 
@@ -18,16 +18,45 @@ export const ViewBlog = () => {
   const [entry, setEntry] = useState<BlogEntry>();
   const [likes, setLikes] = useState<BlogLike[]>([]);
 
+  const loadBlogComments = useCallback(
+    async (id: number) => setComments(await BlogsAPI.loadBlogComments(id)),
+    []
+  );
+
+  const loadBlogLikes = useCallback(
+    async (id: number) => setLikes(await BlogsAPI.loadBlogLikes(id)),
+    []
+  );
+
+  const onLikeToggled = async () => {
+    if (entry) {
+      if (includesUser(likes, { id: 1 } as User)) {
+        await BlogsAPI.removeLike(entry.id, 1);
+      } else {
+        await BlogsAPI.addLike(entry.id, 1);
+      }
+
+      await loadBlogLikes(entry.id);
+    }
+  };
+
+  const onCommentAdded = async (comment: string) => {
+    if (entry) {
+      console.log('comment!', comment);
+      await loadBlogComments(entry.id);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       const idAsNumber = parseInt(id);
       (async () => {
         setEntry(await BlogsAPI.loadBlogEntry(idAsNumber));
-        setComments(await BlogsAPI.loadBlogComments(idAsNumber));
-        setLikes(await BlogsAPI.loadBlogLikes(idAsNumber));
+        await loadBlogComments(idAsNumber);
+        await loadBlogLikes(idAsNumber);
       })();
     }
-  }, [id]);
+  }, [id, loadBlogComments, loadBlogLikes]);
 
   const user: User = { id: 1, name: 'John Smith' };
 
@@ -47,8 +76,8 @@ export const ViewBlog = () => {
             }}
           ></div>
         </article>
-        <Likes currentUser={user} likes={likes} />
-        <Comments comments={comments} />
+        <Likes currentUser={user} likes={likes} onLikeToggled={onLikeToggled} />
+        <Comments comments={comments} onCommentAdded={onCommentAdded} />
       </Container>
     </Box>
   ) : (

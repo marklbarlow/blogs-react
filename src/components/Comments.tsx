@@ -5,7 +5,10 @@ import { format } from 'date-fns';
 
 import { BlogComment } from '../model';
 
-export const Comments = (props: { comments: BlogComment[] }) => {
+export const Comments = (props: {
+  comments: BlogComment[];
+  onCommentAdded?: (comment: string) => void;
+}) => {
   const renderedComments = props.comments?.map(comment => (
     <Stack key={comment.id}>
       <Stack className="comment">
