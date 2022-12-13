@@ -25,7 +25,10 @@ export const ViewBlog = () => {
   const [entry, setEntry] = useState<BlogEntry>();
   const [likes, setLikes] = useState<BlogLike[]>([]);
 
-  const userHasLiked = includesUser(likes, { id: 1 } as User);
+  // To remove
+  const user = { id: 1, name: 'John Smith' };
+
+  const userHasLiked = includesUser(likes, user);
 
   const loadBlogComments = useCallback(
     async (id: number) => setComments(await BlogsAPI.loadBlogComments(id)),
@@ -40,9 +43,15 @@ export const ViewBlog = () => {
   const onLikeToggled = async () => {
     if (entry) {
       if (userHasLiked) {
-        await BlogsAPI.removeLike(entry.id, 1);
+        setLikes(likes.filter(x => x.userId !== user.id));
+        await BlogsAPI.removeLike(entry.id, user.id);
       } else {
-        await BlogsAPI.addLike(entry.id, 1);
+        setLikes([
+          ...likes,
+          { blogEntryId: entry.id, userId: user.id, username: user.name },
+        ]);
+
+        await BlogsAPI.addLike(entry.id, user.id);
       }
 
       await loadBlogLikes(entry.id);
@@ -51,7 +60,7 @@ export const ViewBlog = () => {
 
   const onCommentAdded = async (comment: string) => {
     if (entry) {
-      console.log('comment!', comment);
+      await BlogsAPI.addComment(entry.id, comment, user.id);
       await loadBlogComments(entry.id);
     }
   };

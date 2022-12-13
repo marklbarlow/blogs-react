@@ -2,7 +2,7 @@ import './Comments.css';
 
 import { Stack, TextField } from '@mui/material';
 import { format } from 'date-fns';
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, useRef } from 'react';
 
 import { BlogComment } from '../model';
 
@@ -10,10 +10,13 @@ export const Comments = (props: {
   comments: BlogComment[];
   onCommentAdded: (comment: string) => void;
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault();
       props.onCommentAdded((event.target as HTMLTextAreaElement).value);
+      // @ts-ignore
+      inputRef.current.value = '';
     }
   };
 
@@ -37,6 +40,7 @@ export const Comments = (props: {
     <Stack spacing={1}>
       {renderedComments}
       <TextField
+        inputRef={inputRef}
         fullWidth
         multiline
         variant="standard"
