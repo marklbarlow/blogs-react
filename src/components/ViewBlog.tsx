@@ -8,15 +8,24 @@ import { useParams } from 'react-router-dom';
 import { BlogsAPI } from '../apis/BlogsAPI';
 import { BlogComment, BlogEntry, BlogLike, User } from '../model';
 import { Comments } from './Comments';
-import { includesUser, Likes } from './Likes';
+import { Likes } from './Likes';
 
 const DOMPurify = createDOMPurify(window);
+
+function includesUser(likes: BlogLike[], currentUser?: User): boolean {
+  return (
+    currentUser !== undefined &&
+    likes.map(x => x.userId).includes(currentUser.id)
+  );
+}
 
 export const ViewBlog = () => {
   const { id } = useParams();
   const [comments, setComments] = useState<BlogComment[]>([]);
   const [entry, setEntry] = useState<BlogEntry>();
   const [likes, setLikes] = useState<BlogLike[]>([]);
+
+  const userHasLiked = includesUser(likes, { id: 1 } as User);
 
   const loadBlogComments = useCallback(
     async (id: number) => setComments(await BlogsAPI.loadBlogComments(id)),
@@ -30,7 +39,7 @@ export const ViewBlog = () => {
 
   const onLikeToggled = async () => {
     if (entry) {
-      if (includesUser(likes, { id: 1 } as User)) {
+      if (userHasLiked) {
         await BlogsAPI.removeLike(entry.id, 1);
       } else {
         await BlogsAPI.addLike(entry.id, 1);
@@ -58,8 +67,6 @@ export const ViewBlog = () => {
     }
   }, [id, loadBlogComments, loadBlogLikes]);
 
-  const user: User = { id: 1, name: 'John Smith' };
-
   return entry ? (
     <Box sx={{ marginTop: '32px' }}>
       <Container maxWidth="md">
@@ -76,7 +83,11 @@ export const ViewBlog = () => {
             }}
           ></div>
         </article>
-        <Likes currentUser={user} likes={likes} onLikeToggled={onLikeToggled} />
+        <Likes
+          likes={likes}
+          onLikeToggled={onLikeToggled}
+          userHasLiked={userHasLiked}
+        />
         <Comments comments={comments} onCommentAdded={onCommentAdded} />
       </Container>
     </Box>

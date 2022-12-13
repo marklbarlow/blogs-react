@@ -1,14 +1,22 @@
 import './Comments.css';
 
-import { Stack } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { format } from 'date-fns';
+import { KeyboardEvent } from 'react';
 
 import { BlogComment } from '../model';
 
 export const Comments = (props: {
   comments: BlogComment[];
-  onCommentAdded?: (comment: string) => void;
+  onCommentAdded: (comment: string) => void;
 }) => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      event.preventDefault();
+      props.onCommentAdded((event.target as HTMLTextAreaElement).value);
+    }
+  };
+
   const renderedComments = props.comments?.map(comment => (
     <Stack key={comment.id}>
       <Stack className="comment">
@@ -25,5 +33,18 @@ export const Comments = (props: {
     </Stack>
   ));
 
-  return <Stack spacing={1}>{renderedComments}</Stack>;
+  return (
+    <Stack spacing={1}>
+      {renderedComments}
+      <TextField
+        fullWidth
+        multiline
+        variant="standard"
+        minRows={1}
+        maxRows={5}
+        onKeyDown={onKeyDown}
+        placeholder="Add a comment"
+      />
+    </Stack>
+  );
 };
