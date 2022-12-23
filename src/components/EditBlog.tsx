@@ -3,12 +3,15 @@ import 'react-quill/dist/quill.snow.css';
 import { Button, Container, Stack, TextField } from '@mui/material';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { BlogsAPI } from '../apis/BlogsAPI';
+import { selectSelectedUser } from '../features/usersSlice';
 
 export const EditBlog = () => {
   const navigate = useNavigate();
+  const selectedUser = useSelector(selectSelectedUser);
 
   const {
     control,
@@ -18,8 +21,10 @@ export const EditBlog = () => {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
-    await BlogsAPI.saveBlogEntry(data.title, data.editor, 1);
-    navigate('/');
+    if (selectedUser) {
+      await BlogsAPI.saveBlogEntry(data.title, data.editor, selectedUser.id);
+      navigate('/');
+    }
   };
 
   return (

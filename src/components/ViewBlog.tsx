@@ -3,9 +3,11 @@ import { Box } from '@mui/system';
 import { format } from 'date-fns';
 import createDOMPurify from 'dompurify';
 import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { BlogsAPI } from '../apis/BlogsAPI';
+import { selectSelectedUser } from '../features/usersSlice';
 import { BlogComment, BlogEntry, BlogLike, User } from '../model';
 import { Comments } from './Comments';
 import { Likes } from './Likes';
@@ -25,10 +27,8 @@ export const ViewBlog = () => {
   const [entry, setEntry] = useState<BlogEntry>();
   const [likes, setLikes] = useState<BlogLike[]>([]);
 
-  // To remove
-  const user = { id: 1, name: 'John Smith' };
-
-  const userHasLiked = includesUser(likes, user);
+  const selectedUser = useSelector(selectSelectedUser);
+  const userHasLiked = includesUser(likes, selectedUser);
 
   const loadBlogComments = useCallback(
     async (id: number) => setComments(await BlogsAPI.loadBlogComments(id)),
@@ -41,17 +41,21 @@ export const ViewBlog = () => {
   );
 
   const onLikeToggled = async () => {
-    if (entry) {
+    if (entry && selectedUser) {
       if (userHasLiked) {
-        setLikes(likes.filter(x => x.userId !== user.id));
-        await BlogsAPI.removeLike(entry.id, user.id);
+        setLikes(likes.filter(x => x.userId !== selectedUser.id));
+        await BlogsAPI.removeLike(entry.id, selectedUser.id);
       } else {
         setLikes([
           ...likes,
-          { blogEntryId: entry.id, userId: user.id, username: user.name },
+          {
+            blogEntryId: entry.id,
+            userId: selectedUser.id,
+            username: selectedUser.name,
+          },
         ]);
 
-        await BlogsAPI.addLike(entry.id, user.id);
+        await BlogsAPI.addLike(entry.id, selectedUser.id);
       }
 
       await loadBlogLikes(entry.id);
@@ -59,8 +63,8 @@ export const ViewBlog = () => {
   };
 
   const onCommentAdded = async (comment: string) => {
-    if (entry) {
-      await BlogsAPI.addComment(entry.id, comment, user.id);
+    if (entry && selectedUser) {
+      await BlogsAPI.addComment(entry.id, comment, selectedUser.id);
       await loadBlogComments(entry.id);
     }
   };
