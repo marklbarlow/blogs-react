@@ -12,7 +12,7 @@ import createDOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { BlogsAPI } from '../apis/BlogsAPI';
+import { BlogsAPI } from '../apis';
 import { BlogPreview } from '../model';
 
 const DOMPurify = createDOMPurify(window);
@@ -39,6 +39,7 @@ export const Home = () => {
           {preview.title}
         </Typography>
         <Typography
+          className="prose prose-sm max-w-none"
           variant="body2"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(preview.text),
@@ -52,10 +53,8 @@ export const Home = () => {
   ));
 
   return (
-    <Container maxWidth="md">
-      <section>
-        <List>{items}</List>
-      </section>
-    </Container>
+    <section>
+      <List>{items}</List>
+    </section>
   );
 };

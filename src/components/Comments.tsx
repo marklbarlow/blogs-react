@@ -1,6 +1,4 @@
-import './Comments.css';
-
-import { Stack, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { format } from 'date-fns';
 import { KeyboardEvent, useRef } from 'react';
 
@@ -21,23 +19,23 @@ export const Comments = (props: {
   };
 
   const renderedComments = props.comments?.map(comment => (
-    <Stack key={comment.id}>
-      <Stack className="comment">
-        <span className="user">{comment.username}</span>
+    <div className="flex flex-col" key={comment.id}>
+      <div className="flex flex-col rounded-lg bg-slate-200 p-2">
+        <span className="font-bold">{comment.username}</span>
         <span>{comment.text}</span>
-      </Stack>
+      </div>
 
-      <small className="indent">
+      <small className="ml-2">
         <span className="date">
           {format(new Date(comment.timestamp), 'MMMM d, y')} at{' '}
           {format(new Date(comment.timestamp), 'h:mm a')}
         </span>
       </small>
-    </Stack>
+    </div>
   ));
 
   return (
-    <Stack spacing={1}>
+    <div className="flex flex-col gap-2">
       {renderedComments}
       <TextField
         inputRef={inputRef}
@@ -49,6 +47,6 @@ export const Comments = (props: {
         onKeyDown={onKeyDown}
         placeholder="Add a comment"
       />
-    </Stack>
+    </div>
   );
 };
