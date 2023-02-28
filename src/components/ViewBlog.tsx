@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { BlogsAPI } from '../apis';
 import { selectSelectedUser } from '../features/usersSlice';
 import { BlogComment, BlogEntry, BlogLike, User } from '../model';
+import { Avatar } from './Avatar';
 import { Comments } from './Comments';
 import { Likes } from './Likes';
 
@@ -81,11 +82,12 @@ export const ViewBlog = () => {
 
   return entry ? (
     <main className="flex flex-col gap-4 w-full mt-8">
-      <span className="date">
+      <span className="text-stone-500">
         {format(new Date(entry.timestamp), 'EEEE, MMMM d, y')}
       </span>
 
       <h1 className="text-4xl">{entry.title}</h1>
+      <Avatar username={entry.username}></Avatar>
 
       <article className="prose prose-lg max-w-none prose-img:mx-auto">
         <div

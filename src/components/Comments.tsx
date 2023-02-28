@@ -26,7 +26,7 @@ export const Comments = (props: {
       </div>
 
       <small className="ml-2">
-        <span className="date">
+        <span className="text-stone-500">
           {format(new Date(comment.timestamp), 'MMMM d, y')} at{' '}
           {format(new Date(comment.timestamp), 'h:mm a')}
         </span>

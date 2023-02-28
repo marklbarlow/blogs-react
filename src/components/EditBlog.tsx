@@ -28,8 +28,8 @@ export const EditBlog = () => {
   };
 
   return (
-    <form>
-      <main className="flex flex-col gap-4 mt-8">
+    <main>
+      <form className="flex flex-col gap-4 w-full mt-8">
         <h1 className="text-4xl">Create Blog Post</h1>
         <TextField
           fullWidth
@@ -66,7 +66,7 @@ export const EditBlog = () => {
             Save
           </Button>
         </div>
-      </main>
-    </form>
+      </form>
+    </main>
   );
 };
