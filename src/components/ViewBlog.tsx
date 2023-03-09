@@ -1,8 +1,8 @@
 import { CircularProgress } from '@mui/material';
 import { format } from 'date-fns';
 import createDOMPurify from 'dompurify';
+import { useAppSelector } from 'hooks';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { BlogsAPI } from '../apis';
@@ -27,7 +27,7 @@ export const ViewBlog = () => {
   const [entry, setEntry] = useState<BlogEntry>();
   const [likes, setLikes] = useState<BlogLike[]>([]);
 
-  const selectedUser = useSelector(selectSelectedUser);
+  const selectedUser = useAppSelector(selectSelectedUser);
   const userHasLiked = includesUser(likes, selectedUser);
 
   const loadBlogComments = useCallback(

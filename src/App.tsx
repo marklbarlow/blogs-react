@@ -1,6 +1,6 @@
 import { SelectChangeEvent, ThemeProvider } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { BlogsAPI } from './apis';
@@ -15,9 +15,9 @@ import { User } from './model';
 import { theme } from './theme';
 
 export const App = () => {
-  const availableUsers = useSelector(selectAvailableUsers);
-  const selectedUser = useSelector(selectSelectedUser);
-  const dispatch = useDispatch();
+  const availableUsers = useAppSelector(selectAvailableUsers);
+  const selectedUser = useAppSelector(selectSelectedUser);
+  const dispatch = useAppDispatch();
 
   const onSelectUser = (event: SelectChangeEvent) => {
     const user = JSON.parse(event.target.value) as User;

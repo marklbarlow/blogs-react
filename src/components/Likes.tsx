@@ -20,13 +20,14 @@ export const Likes = (props: {
     props.likes && (
       <div className="flex gap-2">
         <Icon
+          data-testid="icon"
           className="cursor-pointer"
           baseClassName={iconClass}
           onClick={props.onLikeToggled}
         >
           thumb_up
         </Icon>
-        <Tooltip title={tooltip}>
+        <Tooltip data-testid="tooltip" title={tooltip}>
           <span className="mt-1">{props.likes.length}</span>
         </Tooltip>
       </div>

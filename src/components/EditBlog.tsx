@@ -1,9 +1,9 @@
 import 'react-quill/dist/quill.snow.css';
 
 import { Button, TextField } from '@mui/material';
+import { useAppSelector } from 'hooks';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { BlogsAPI } from '../apis';
@@ -11,7 +11,7 @@ import { selectSelectedUser } from '../features/usersSlice';
 
 export const EditBlog = () => {
   const navigate = useNavigate();
-  const selectedUser = useSelector(selectSelectedUser);
+  const selectedUser = useAppSelector(selectSelectedUser);
 
   const {
     control,
