@@ -1,7 +1,7 @@
 import { SelectChangeEvent, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { BlogsAPI } from './apis';
 import { EditBlog, Home, NavBar, ViewBlog } from './components';
@@ -32,7 +32,7 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider theme={theme}>
         <div className="flex flex-col h-full">
           <NavBar
@@ -51,7 +51,7 @@ export const App = () => {
           </div>
         </div>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
