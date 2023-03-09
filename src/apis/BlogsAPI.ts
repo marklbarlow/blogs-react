@@ -1,5 +1,5 @@
 import { BlogComment, BlogEntry, BlogLike, BlogPreview, User } from '../model';
-import { Rest } from './Rest';
+import { api } from './configs';
 
 export const BlogsAPI = {
   addComment: async (
@@ -7,23 +7,25 @@ export const BlogsAPI = {
     text: string,
     userId: number
   ): Promise<void> =>
-    await Rest.post<void>(`/blogs/${blogId}/comments`, { text, userId }),
+    (await api.post<void>(`/blogs/${blogId}/comments`, { text, userId })).data,
   addLike: async (blogId: number, userId: number): Promise<void> =>
-    await Rest.put<void>(`/blogs/${blogId}/likes/${userId}`, {}),
+    (await api.put<void>(`/blogs/${blogId}/likes/${userId}`, {})).data,
   loadBlogComments: async (blogId: number): Promise<BlogComment[]> =>
-    await Rest.get<BlogComment[]>(`/blogs/${blogId}/comments`),
+    (await api.get<BlogComment[]>(`/blogs/${blogId}/comments`)).data,
   loadBlogEntry: async (blogId: number): Promise<BlogEntry> =>
-    await Rest.get<BlogEntry>(`/blogs/${blogId}`),
+    (await api.get<BlogEntry>(`/blogs/${blogId}`)).data,
   loadBlogLikes: async (blogId: number): Promise<BlogLike[]> =>
-    await Rest.get<BlogLike[]>(`/blogs/${blogId}/likes`),
+    (await api.get<BlogLike[]>(`/blogs/${blogId}/likes`)).data,
   loadBlogPreviews: async (top: number = 5): Promise<BlogPreview[]> =>
-    await Rest.get<BlogPreview[]>(`/blogs?top=${top}`),
-  loadUsers: async (): Promise<User[]> => await Rest.get<User[]>('/users'),
+    (await api.get<BlogPreview[]>(`/blogs?top=${top}`)).data,
+  loadUsers: async (): Promise<User[]> =>
+    (await api.get<User[]>('/users')).data,
   saveBlogEntry: async (
     title: string,
     text: string,
     userId: number
-  ): Promise<void> => await Rest.post<void>('/blogs', { text, title, userId }),
+  ): Promise<void> =>
+    (await api.post<void>('/blogs', { text, title, userId })).data,
   removeLike: async (blogId: number, userId: number): Promise<void> =>
-    Rest.delete(`/blogs/${blogId}/likes/${userId}`),
+    (await api.delete<void>(`/blogs/${blogId}/likes/${userId}`)).data,
 };

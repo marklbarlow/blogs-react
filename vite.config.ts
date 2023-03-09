@@ -1,15 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react-swc';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   test: {
     coverage: {
       reporter: ['text', 'json', 'html'],
+      provider: 'c8',
     },
-    globals: true,
     environment: 'jsdom',
-    setupFiles: './tests/setup.ts',
+    globals: true,
+    setupFiles: './src/tests/setup.ts',
   },
-})
+});
