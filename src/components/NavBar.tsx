@@ -6,6 +6,7 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import { User } from '../model';
 
@@ -15,6 +16,12 @@ export const NavBar = (props: {
   onSelectUser: (event: SelectChangeEvent) => void;
   selectedUser?: User;
 }) => {
+  const navigate = useNavigate();
+
+  const onEditBlog = () => {
+    navigate(`/edit-blog`);
+  };
+
   return (
     <div
       className={`${
@@ -38,7 +45,11 @@ export const NavBar = (props: {
         Blog
       </Typography>
 
-      <Button href="/edit-blog" color="secondary" variant="contained">
+      <Button
+        onClick={() => onEditBlog()}
+        color="secondary"
+        variant="contained"
+      >
         Create Blog Entry
       </Button>
       <span className="flex-auto"></span>
