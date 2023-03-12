@@ -1,4 +1,4 @@
-import { renderWithProviders } from 'tests/utils';
+import { renderWithProviders } from 'tests';
 import { describe } from 'vitest';
 
 import { Home } from './Home';

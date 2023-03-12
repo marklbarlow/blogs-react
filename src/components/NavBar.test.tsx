@@ -1,5 +1,4 @@
-import { users } from 'tests';
-import { renderWithProviders } from 'tests/utils';
+import { renderWithProviders, users } from 'tests';
 import { describe } from 'vitest';
 
 import { NavBar } from './NavBar';

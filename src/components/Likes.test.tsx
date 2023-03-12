@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { likes } from 'tests';
+import { render, screen } from '@testing-library/react';
+import { likes, setup } from 'tests';
 import { describe, vi } from 'vitest';
 
 import { Likes } from './Likes';
@@ -17,13 +17,13 @@ describe('Likes', () => {
     expect(tooltip).toHaveAccessibleName('Liked by John Smith, John Snow');
   });
 
-  it(`handles a 'liked' toggle`, () => {
+  it(`handles a 'liked' toggle`, async () => {
     const handleClick = vi.fn();
-    render(
+    const { user } = setup(
       <Likes likes={likes} onLikeToggled={handleClick} userHasLiked={true} />
     );
 
-    fireEvent.click(screen.getByTestId('icon'));
+    await user.click(screen.getByTestId('icon'));
 
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
