@@ -56,6 +56,7 @@ export const NavBar = (props: {
       <span>Impersonating user:</span>
       <FormControl>
         <Select
+          data-testid="user"
           variant="filled"
           key={props.selectedUser?.id}
           value={props.selectedUser ? JSON.stringify(props.selectedUser) : ''}

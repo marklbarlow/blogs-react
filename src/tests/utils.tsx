@@ -6,12 +6,15 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { setupStore } from '../store';
 
+import type { InitialEntry } from '@remix-run/router';
+
 import type { RenderOptions } from '@testing-library/react';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import type { AppStore, RootState } from '../store';
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  initialEntries?: InitialEntry[];
   preloadedState?: PreloadedState<RootState>;
   store?: AppStore;
 }
@@ -19,6 +22,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export function renderWithProviders(
   ui: React.ReactElement,
   {
+    initialEntries = ['/'],
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
@@ -28,7 +32,7 @@ export function renderWithProviders(
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
     return (
       <Provider store={store}>
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
       </Provider>
     );
   }
