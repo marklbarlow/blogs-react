@@ -10,6 +10,7 @@
     "test": "vitest",
     "test-ui": "vitest --ui",
     "coverage": "vitest run --coverage",
+    "format": "prettier --write \"src/**/*.{scss,ts,tsx,html}\"",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {

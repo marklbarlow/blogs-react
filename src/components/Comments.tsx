@@ -13,9 +13,9 @@ export const Comments = (props: {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault();
       props.onCommentAdded((event.target as HTMLTextAreaElement).value);
-    
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (inputRef.current!).value = '';
+      inputRef.current!.value = '';
     }
   };
 
