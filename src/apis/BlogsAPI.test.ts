@@ -1,5 +1,6 @@
 import { comments, entry, likes, previews, users } from 'tests';
-import { afterEach, beforeEach, SpyInstance, vi } from 'vitest';
+import { afterEach, beforeEach, vi } from 'vitest';
+import type { SpyInstance } from 'vitest';
 
 import { BlogsAPI } from './BlogsAPI';
 import { api } from './configs';

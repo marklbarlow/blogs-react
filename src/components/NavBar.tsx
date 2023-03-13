@@ -3,13 +3,13 @@ import {
   FormControl,
   MenuItem,
   Select,
-  SelectChangeEvent,
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { User } from '../model';
 
+import type { SelectChangeEvent } from '@mui/material';
 export const NavBar = (props: {
   availableUsers: User[];
   className?: string;

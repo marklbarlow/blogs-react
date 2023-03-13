@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { User } from '../model';
 import { RootState } from '../store';
 
+import type { PayloadAction } from '@reduxjs/toolkit';
 interface UsersState {
   availableUsers: User[];
   selectedUser?: User;

@@ -16,7 +16,7 @@ export const BlogsAPI = {
     (await api.get<BlogEntry>(`/blogs/${blogId}`)).data,
   loadBlogLikes: async (blogId: number): Promise<BlogLike[]> =>
     (await api.get<BlogLike[]>(`/blogs/${blogId}/likes`)).data,
-  loadBlogPreviews: async (top: number = 5): Promise<BlogPreview[]> =>
+  loadBlogPreviews: async (top = 5): Promise<BlogPreview[]> =>
     (await api.get<BlogPreview[]>(`/blogs?top=${top}`)).data,
   loadUsers: async (): Promise<User[]> =>
     (await api.get<User[]>('/users')).data,

@@ -1,4 +1,4 @@
-import { SelectChangeEvent, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useEffect } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -14,6 +14,7 @@ import {
 import { User } from './model';
 import { theme } from './theme';
 
+import type { SelectChangeEvent } from '@mui/material';
 export const App = () => {
   const availableUsers = useAppSelector(selectAvailableUsers);
   const selectedUser = useAppSelector(selectSelectedUser);

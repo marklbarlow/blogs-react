@@ -18,6 +18,7 @@ describe('EditBlog', () => {
 
     const title = screen.getByLabelText('Title');
     await user.type(title, 'This is some text');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await user.type(container.querySelector('.ql-editor')!, 'Hello, World!');
 
     const button = screen.getByText('Save');
