@@ -10,7 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { User } from '../model';
 
 import type { SelectChangeEvent } from '@mui/material';
-export const NavBar = (props: {
+export const NavBar = ({
+  availableUsers,
+  className,
+  onSelectUser,
+  selectedUser,
+}: {
   availableUsers: User[];
   className?: string;
   onSelectUser: (event: SelectChangeEvent) => void;
@@ -25,7 +30,7 @@ export const NavBar = (props: {
   return (
     <div
       className={`${
-        props.className ?? ''
+        className ?? ''
       } flex flex-row items-center gap-2 px-4 backdrop-blur border-b border-slate-900/10`}
     >
       <Typography
@@ -58,12 +63,12 @@ export const NavBar = (props: {
         <Select
           data-testid="user"
           variant="filled"
-          key={props.selectedUser?.id}
-          value={props.selectedUser ? JSON.stringify(props.selectedUser) : ''}
+          key={selectedUser?.id}
+          value={selectedUser ? JSON.stringify(selectedUser) : ''}
           label="User"
-          onChange={props.onSelectUser}
+          onChange={onSelectUser}
         >
-          {props.availableUsers.map(user => (
+          {availableUsers.map(user => (
             <MenuItem key={user.id} value={JSON.stringify(user)}>
               {user.name}
             </MenuItem>

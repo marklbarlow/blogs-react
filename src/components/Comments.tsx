@@ -4,7 +4,10 @@ import { KeyboardEvent, useRef } from 'react';
 
 import { BlogComment } from '../model';
 
-export const Comments = (props: {
+export const Comments = ({
+  comments,
+  onCommentAdded,
+}: {
   comments: BlogComment[];
   onCommentAdded: (comment: string) => void;
 }) => {
@@ -12,14 +15,14 @@ export const Comments = (props: {
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault();
-      props.onCommentAdded((event.target as HTMLTextAreaElement).value);
+      onCommentAdded((event.target as HTMLTextAreaElement).value);
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       inputRef.current!.value = '';
     }
   };
 
-  const renderedComments = props.comments?.map(comment => (
+  const renderedComments = comments?.map(comment => (
     <div className="flex flex-col" key={comment.id}>
       <div className="flex flex-col rounded-lg bg-slate-200 p-2">
         <span className="font-bold">{comment.username}</span>
