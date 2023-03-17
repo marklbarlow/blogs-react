@@ -2,8 +2,13 @@ import matchers from '@testing-library/jest-dom/matchers';
 import { cleanup } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { comments, entry, likes, previews, users } from 'tests';
 import { afterEach, expect } from 'vitest';
+
+import { comments } from './blog-comment';
+import { entry } from './blog-entry';
+import { likes } from './blog-like';
+import { previews } from './blog-preview';
+import { users } from './user';
 
 // extends Vitest's expect method with methods from react-testing-library
 expect.extend(matchers);
@@ -16,7 +21,7 @@ export const restHandlers = [
   }),
 
   rest.post(`${baseUrl}/blogs`, (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({}));
   }),
 
   rest.get(`${baseUrl}/blogs/1`, (req, res, ctx) => {
@@ -28,11 +33,11 @@ export const restHandlers = [
   }),
 
   rest.post(`${baseUrl}/blogs/1/comments`, (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({}));
   }),
 
   rest.delete(`${baseUrl}/blogs/1/likes/999`, (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({}));
   }),
 
   rest.get(`${baseUrl}/blogs/1/likes`, (req, res, ctx) => {
@@ -40,7 +45,7 @@ export const restHandlers = [
   }),
 
   rest.put(`${baseUrl}/blogs/1/likes/999`, (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({}));
   }),
 
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {
