@@ -1,6 +1,6 @@
 import 'react-quill/dist/quill.snow.css';
 
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
@@ -57,14 +57,14 @@ export const EditBlog = () => {
           )}
         />
         <div className="flex justify-end">
-          <Button
-            color="secondary"
-            variant="contained"
+          <button
+            className="btn btn-blue"
+            type="button"
             onClick={handleSubmit(onSubmit)}
             disabled={!isValid}
           >
             Save
-          </Button>
+          </button>
         </div>
       </form>
     </main>

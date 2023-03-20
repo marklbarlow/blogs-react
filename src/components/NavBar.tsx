@@ -1,10 +1,4 @@
-import {
-  Button,
-  FormControl,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material';
+import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { User } from '../model';
@@ -50,13 +44,13 @@ export const NavBar = ({
         Blog
       </Typography>
 
-      <Button
+      <button
+        className="btn btn-blue"
+        type="button"
         onClick={() => onEditBlog()}
-        color="secondary"
-        variant="contained"
       >
         Create Blog Entry
-      </Button>
+      </button>
       <span className="flex-auto"></span>
       <span>Impersonating user:</span>
       <FormControl>
@@ -76,13 +70,15 @@ export const NavBar = ({
         </Select>
       </FormControl>
 
-      <Button
-        href="https://victorious-tree-0f7138003.2.azurestaticapps.net"
-        color="secondary"
-        variant="contained"
+      <button
+        className="btn btn-blue"
+        onClick={() =>
+          (location.href =
+            'https://victorious-tree-0f7138003.2.azurestaticapps.net')
+        }
       >
         View Angular Version
-      </Button>
+      </button>
     </div>
   );
 };

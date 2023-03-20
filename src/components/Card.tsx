@@ -29,7 +29,13 @@ export const Card = ({
         }}
       ></div>
       <div>
-        <Button onClick={() => onReadClicked(preview.id)}>Read More</Button>
+        <button
+          className="bg-transparent hover:bg-blue-700 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+          type="button"
+          onClick={() => onReadClicked(preview.id)}
+        >
+          Read More
+        </button>
       </div>
     </div>
   );
