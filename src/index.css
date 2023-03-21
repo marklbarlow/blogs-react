@@ -10,12 +10,15 @@
 .btn:disabled {
   @apply opacity-25;
 }
-.btn-outline {
-  @apply outline-1;
-}
 .btn-blue {
   @apply bg-blue-500 text-white;
 }
 .btn-blue:enabled:hover {
   @apply bg-blue-700;
+}
+.btn-outline {
+  @apply bg-transparent text-blue-500 border;
+}
+.btn-outline:hover {
+  @apply bg-blue-700 text-white border-transparent;
 }
