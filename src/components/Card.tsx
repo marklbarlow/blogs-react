@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { format } from 'date-fns';
 import createDOMPurify from 'dompurify';
 

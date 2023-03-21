@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material';
 import { format } from 'date-fns';
 import createDOMPurify from 'dompurify';
 import { useAppSelector } from 'hooks';
@@ -9,6 +8,7 @@ import { BlogsAPI } from '../apis';
 import { selectSelectedUser } from '../features/usersSlice';
 import { BlogComment, BlogEntry, BlogLike, User } from '../model';
 import { Avatar } from './Avatar';
+import { CircularProgress } from './CircularProgress';
 import { Comments } from './Comments';
 import { Likes } from './Likes';
 

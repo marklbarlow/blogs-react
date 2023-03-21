@@ -1,4 +1,4 @@
-import { getByRole, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setUsers } from 'features/usersSlice';
 import { Provider } from 'react-redux';
@@ -25,8 +25,10 @@ describe('App', () => {
   it('allows the user to select a user', async () => {
     const user = userEvent.setup();
 
-    await user.click(getByRole(screen.getByTestId('user'), 'button'));
-    await user.click(screen.getByText('Darth Vader'));
+    await user.selectOptions(
+      screen.getByTestId('user'),
+      screen.getByRole('option', { name: 'Darth Vader' })
+    );
   });
 
   it('allows the user to create a new entry', async () => {

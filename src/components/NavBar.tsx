@@ -1,9 +1,7 @@
-import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { User } from '../model';
 
-import type { SelectChangeEvent } from '@mui/material';
 export const NavBar = ({
   availableUsers,
   className,
@@ -12,7 +10,7 @@ export const NavBar = ({
 }: {
   availableUsers: User[];
   className?: string;
-  onSelectUser: (event: SelectChangeEvent) => void;
+  onSelectUser: (user: User) => void;
   selectedUser?: User;
 }) => {
   const navigate = useNavigate();
@@ -27,22 +25,9 @@ export const NavBar = ({
         className ?? ''
       } flex flex-row items-center gap-2 px-4 backdrop-blur border-b border-slate-900/10`}
     >
-      <Typography
-        variant="h6"
-        noWrap
-        component="a"
-        href="/"
-        sx={{
-          mr: 2,
-          fontFamily: 'monospace',
-          fontWeight: 700,
-          letterSpacing: '.3rem',
-          color: 'inherit',
-          textDecoration: 'none',
-        }}
-      >
+      <a className="text-xl font-mono text-decoration-none" href="/">
         Blog
-      </Typography>
+      </a>
 
       <button
         className="btn btn-blue"
@@ -53,22 +38,21 @@ export const NavBar = ({
       </button>
       <span className="flex-auto"></span>
       <span>Impersonating user:</span>
-      <FormControl>
-        <Select
-          data-testid="user"
-          variant="filled"
-          key={selectedUser?.id}
-          value={selectedUser ? JSON.stringify(selectedUser) : ''}
-          label="User"
-          onChange={onSelectUser}
-        >
-          {availableUsers.map(user => (
-            <MenuItem key={user.id} value={JSON.stringify(user)}>
-              {user.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+
+      <select
+        className="form-select rounded-md border-gray-300 shadow-sm"
+        data-testid="user"
+        key={selectedUser?.id}
+        value={selectedUser ? JSON.stringify(selectedUser) : ''}
+        placeholder="User"
+        onChange={event => onSelectUser(JSON.parse(event.target.value) as User)}
+      >
+        {availableUsers.map(user => (
+          <option key={user.id} value={JSON.stringify(user)}>
+            {user.name}
+          </option>
+        ))}
+      </select>
 
       <button
         className="btn btn-blue"

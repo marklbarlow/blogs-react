@@ -16,7 +16,7 @@ describe('EditBlog', () => {
     store.dispatch(setUsers({ users }));
     const { container, user } = renderWithProviders(<EditBlog />, { store });
 
-    const title = screen.getByLabelText('Title');
+    const title = screen.getByTestId('title');
     await user.type(title, 'This is some text');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await user.type(container.querySelector('.ql-editor')!, 'Hello, World!');

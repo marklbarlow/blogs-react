@@ -1,5 +1,3 @@
-import { Icon, Tooltip } from '@mui/material';
-
 import { BlogLike } from '../model';
 
 export const Likes = ({
@@ -19,17 +17,17 @@ export const Likes = ({
   return (
     likes && (
       <div className="flex gap-2">
-        <Icon
+        <button
           data-testid="icon"
-          className="cursor-pointer"
-          baseClassName={iconClass}
+          type="button"
+          className={`cursor-pointer ${iconClass}`}
           onClick={onLikeToggled}
         >
           thumb_up
-        </Icon>
-        <Tooltip data-testid="tooltip" title={tooltip}>
+        </button>
+        <div data-testid="tooltip" title={tooltip}>
           <span className="mt-1">{likes.length}</span>
-        </Tooltip>
+        </div>
       </div>
     )
   );

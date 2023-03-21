@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useEffect } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -12,16 +11,13 @@ import {
   setUsers,
 } from './features/usersSlice';
 import { User } from './model';
-import { theme } from './theme';
 
-import type { SelectChangeEvent } from '@mui/material';
 export const App = () => {
   const availableUsers = useAppSelector(selectAvailableUsers);
   const selectedUser = useAppSelector(selectSelectedUser);
   const dispatch = useAppDispatch();
 
-  const onSelectUser = (event: SelectChangeEvent) => {
-    const user = JSON.parse(event.target.value) as User;
+  const onSelectUser = (user: User) => {
     dispatch(selectUser({ user }));
   };
 
@@ -34,24 +30,22 @@ export const App = () => {
 
   return (
     <HashRouter>
-      <ThemeProvider theme={theme}>
-        <div className="flex flex-col h-full">
-          <NavBar
-            className="sticky top-0 z-50"
-            availableUsers={availableUsers}
-            onSelectUser={onSelectUser}
-            selectedUser={selectedUser}
-          ></NavBar>
+      <div className="flex flex-col h-full">
+        <NavBar
+          className="sticky top-0 z-50"
+          availableUsers={availableUsers}
+          onSelectUser={onSelectUser}
+          selectedUser={selectedUser}
+        ></NavBar>
 
-          <div className="flex flex-col h-full container mx-auto max-w-4xl relative mb-4">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/edit-blog" element={<EditBlog />} />
-              <Route path="/view-blog/:id" element={<ViewBlog />} />
-            </Routes>
-          </div>
+        <div className="flex flex-col h-full container mx-auto max-w-4xl relative mb-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/edit-blog" element={<EditBlog />} />
+            <Route path="/view-blog/:id" element={<ViewBlog />} />
+          </Routes>
         </div>
-      </ThemeProvider>
+      </div>
     </HashRouter>
   );
 };

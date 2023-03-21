@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import { format } from 'date-fns';
 import { KeyboardEvent, useRef } from 'react';
 
@@ -11,7 +10,7 @@ export const Comments = ({
   comments: BlogComment[];
   onCommentAdded: (comment: string) => void;
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault();
@@ -41,16 +40,13 @@ export const Comments = ({
   return (
     <div className="flex flex-col gap-2">
       {renderedComments}
-      <TextField
-        inputRef={inputRef}
-        fullWidth
-        multiline
-        variant="standard"
-        minRows={1}
-        maxRows={5}
+      <textarea
+        className="form-textarea rounded-md border-gray-300 shadow-sm resize-none"
+        rows={2}
         onKeyDown={onKeyDown}
         placeholder="Add a comment"
-      />
+        ref={inputRef}
+      ></textarea>
     </div>
   );
 };

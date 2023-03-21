@@ -1,4 +1,4 @@
-import { getByRole, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { setUsers } from 'features/usersSlice';
 import { setupStore } from 'store';
 import { renderWithProviders, users } from 'tests';
@@ -23,8 +23,10 @@ describe('NavBar', () => {
       { store }
     );
 
-    await user.click(getByRole(screen.getByTestId('user'), 'button'));
-    await user.click(screen.getByText('Darth Vader'));
+    await user.selectOptions(
+      screen.getByTestId('user'),
+      screen.getByRole('option', { name: 'Darth Vader' })
+    );
 
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
