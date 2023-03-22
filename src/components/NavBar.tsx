@@ -26,7 +26,7 @@ export const NavBar = ({
       } flex flex-row items-center gap-2 px-4 backdrop-blur border-b border-slate-900/10`}
     >
       <a className="text-xl font-mono text-decoration-none" href="/">
-        Blog
+        Blog - React
       </a>
 
       <button
