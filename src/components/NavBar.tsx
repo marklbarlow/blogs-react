@@ -61,7 +61,17 @@ export const NavBar = ({
             'https://victorious-tree-0f7138003.2.azurestaticapps.net')
         }
       >
-        View Angular Version
+        Angular
+      </button>
+
+      <button
+        className="btn btn-blue"
+        onClick={() =>
+          (location.href =
+            'https://agreeable-flower-00e2c7203.2.azurestaticapps.net')
+        }
+      >
+        Preact
       </button>
     </div>
   );
